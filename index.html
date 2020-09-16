@@ -1,0 +1,61 @@
+<!DOCTYPE html>    
+<html>    
+<head>    
+    <title>CHARMS</title>    
+    <link rel="stylesheet" type="text/css" href="styles.css"> 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+if(profile.getEmail().split("@")[1]=="astra.xlri.ac.in"){
+  console.log('ID: ' + profile.getId()); 
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+document.getElementById("loggedIn").innerHTML+="<div id='signPage'><h1>Welcome to the CHARM of SOCRATES!!!<h1> <div>Hey "+profile.getName()+"!!!</div><div><button onclick='signOut()'>Sign Out</button></div></div>"; 
+}
+else{
+alert('You can not login with email '+profile.getEmail()+' use your astra ID')
+signOut();
+document.getElementById("loggedIn").innerHTML=""
+}
+}
+
+function signOut(){
+gapi.auth2.getAuthInstance().signOut().then(function(){
+let signDetails = document.getElementById("signPage");
+signDetails.remove();
+console.log("User signed out")
+})
+}
+</script> 
+<meta name="google-signin-client_id" content="926954579181-07m6k10f2495q7pi6q80k0ragdn6lpki.apps.googleusercontent.com">
+</head>    
+<body>       
+    <div class="login text-center" style="margin-top:10%">    
+    <div>
+       <div class="text-center">
+        <img src="logo.png" style="height: 75px" />
+        <h3 style="color:White;margin-top:20px">CHARMS Login</h3> 
+       </div>    
+    </div>
+<div class="g-signin2" data-onsuccess="onSignIn" style="margin-top:30px;margin-left: 25%;cursor:pointer"></div>       
+</div>
+
+<div id="loggedIn">
+</div> 
+     
+</body>
+   
+</html>
